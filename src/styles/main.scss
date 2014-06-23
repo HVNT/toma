@@ -1,0 +1,137 @@
+/** Armoire Specific Variables **/
+
+$dashboard-filter-width: 245px;
+$dashboard-list-width: 402px;
+$header-height: 60px;
+
+/** Vendor **/
+
+@import "compass";
+@import "compass/reset";
+@import "animation";
+@import "animation/animate";
+@import "animation/animate/classes";
+@import "components/font-awesome/scss/font-awesome";
+@import "components/hint.css/src/hint";
+
+/** Rescour Global **/
+
+@import "common";
+
+/** Swinder Specific **/
+
+
+
+body {
+  margin: 0;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height;
+  color: $text-color;
+  background:  $body-bg;
+  //overflow-x: hidden;
+  overflow:hidden;
+  //overflow-y: auto;
+}
+
+/** Loading Screen **/
+
+.loading-background {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 5;
+  background: $body-bg;
+  @include animation(fadeIn 1s ease);
+
+  &::after {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    content: '';
+    z-index: 6;
+    @include background-image(radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(99,103,105,0.45) 100%));
+  }
+
+  &.ng-hide {
+    @include animation(fadeOut 1s ease);
+  }
+}
+
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 200px;
+  margin-left: -200px;
+  margin-top: -100px;
+  text-align: center;
+}
+
+.account {
+  @extend .dashboard;
+  overflow: scroll;
+}
+
+/* Scroll Bar */
+
+::-webkit-scrollbar, ::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  @include border-radius(5px);
+}
+
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
+  background-color: $gray-dark;
+
+  @include border-radius(5px);
+  @include box-shadow(rgba(0, 0, 0, 0.05) -1px 0 7px inset);
+}
+
+::-webkit-scrollbar-track-piece, ::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-corner, ::-webkit-scrollbar-corner {
+  display: none;
+}
+
+/** Hint Branding **/
+
+.hint--primary {
+  @include hint-type($gray-darker);
+}
+
+.hint--success {
+  @include hint-type($brand-success);
+}
+
+.hint--error {
+  @include hint-type($brand-danger);
+}
+
+.hint--info {
+  @include hint-type($brand-primary);
+}
+
+.hint--top {
+  &::before {
+    margin-left: -6px;
+  }
+}
+
+/** Loading Bar Branding **/
+
+#loading-bar .bar {
+  background: $brand-danger;
+}
+
+#loading-bar .peg {
+  @include box-shadow(none !important);
+  @include box-shadow(#{0 0 10px $brand-primary, 0 0 5px $brand-primary});
+}
