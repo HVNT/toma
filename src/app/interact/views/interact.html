@@ -1,11 +1,12 @@
 <div class="banner text-center row" ng-class="{'banner--wilkinson': !activeAddress.transformedAddress,
                                                'banner--ani': !activeAddress.transformedAddress,
-                                               'banner--off-white': activeAddress.transformedAddress}">
+                                               'banner--off-white': activeAddress.transformedAddress}"
+        ng-if="activeAddress.status != 'confirmed'">
     <!-- can we even get lat/lng? -->
     <div ng-if="session.geoSupport">
-        <!-- did we geocode it? -->
-        <div ng-show="activeAddress.status != 'rGeocoded' && activeAddress.status != 'confirmed'" style="padding-top:8px;">
 
+        <!-- did we geocode it? -->
+        <div ng-show="activeAddress.status != 'rGeocoded' && activeAddress.status != 'confirmed' && !showingEditGeoAddress" style="padding-top:8px;">
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 {{title.confirmLead}}
             </div>
@@ -14,20 +15,28 @@
             </div>
             <!--<div class="pull-right col-lg-2 pull-right" ng-if="activeAddress.status == 'pGiven'">Loading...</div>-->
         </div>
+
         <!-- geocoded successfully -->
         <div ng-show="activeAddress.status == 'rGeocoded' && activeAddress.transformedAddress" style="padding-top:8px;">
-            <div class="col-lg-offset-2 col-lg-5">
+            <div class="col-lg-offset-2 col-lg-5" ng-show="!showingEditGeoAddress">
                 {{ title.correctLead }} <strong>{{ activeAddress.transformedAddress }}</strong> {{ title.correctEnd }}
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" ng-show="!showingEditGeoAddress">
                 Did we get your address correct?
                 <span class="flat-btn flat-btn--success" ng-click="confirmAddress()">Yes</span>
-                <span class="flat-btn flat-btn--danger">No</span>
+                <span class="flat-btn flat-btn--danger" ng-click="toggleEditGeoAddress()">No</span>
+            </div>
+
+            <div class="col-lg-offset-2 col-lg-5" ng-show="showingEditGeoAddress">
+                Help us get your address <strong>right</strong>. Edit your address below.
+            </div>
+
+
+            <!-- edit geocoded address -->
+            <div ng-show="showingEditGeoAddress" class="ani--accordion" style="min-height:30px; max-height: 30px;">
+
             </div>
         </div>
-        <!-- address confirmed -->
-        
-        <!-- edit geocoded address -->
 
     </div>
 

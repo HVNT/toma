@@ -16,6 +16,11 @@ angular.module('thotpod.toma')
             correctAxn: 'Did we get your address right?'
         };
 
+        $scope.showingEditGeoAddress = false;
+        $scope.toggleEditGeoAddress = function () {
+            $scope.showingEditGeoAddress = !$scope.showingEditGeoAddress;
+        };
+
         //begin
         initialize();
 
