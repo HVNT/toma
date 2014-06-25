@@ -64,8 +64,6 @@ angular.module('thotpod.toma')
                     $scope.activeAddress.stateAbbrev = response.stateAbbrev;
                     $scope.activeAddress.zip = response.zip;
                     $scope.activeAddress.county = response.county;
-
-                    $scope.activeAddress.transformAddress();
                     //set status
 //                        $scope.activeAddress.status = 'rGeocoded';
 

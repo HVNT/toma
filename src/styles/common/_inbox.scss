@@ -63,8 +63,10 @@
   font-weight: bold;
   background: $white-google;
   @include box-shadow(none !important);
-  @include border-radius($border-radius-small);
+  @include border-radius($border-radius-base);
   border: none;
+  display: inline;
+  padding: 7px 9px;
 
   &:focus {
     border: 1px solid $gray-light;
@@ -72,8 +74,17 @@
   }
 
   &:hover:not(:focus) {
-    background: $gray-light;
+    background: $white-google;
   }
+}
+
+.form-input--brand-border {
+  border: 1px solid rgba(47, 49, 146, .4); // wilkinson era;
+}
+
+.form-input--sml {
+  font-size: 11px;
+  max-height: 27px;
 }
 
 .form-input--white {
@@ -120,6 +131,31 @@
   right: 15px;
 }
 
+.form-input__label {
+  float: left;
+  padding-right: $grid-gutter-width;
+  display: inline !important;
+}
+
+.form__btn-success {
+  position: absolute;
+  top: 24px;
+  right: 247px;
+  min-width: 52px;
+  min-height: 29px;
+  @include border-radius($border-radius-base);
+  border: 1px solid darken($brand-success, 15%);
+
+  &:hover {
+    top: 22px;
+    border-bottom: 3px solid darken($brand-success, 15%);
+  }
+  &:active {
+    top: 24px;
+    border-bottom: 1px solid darken($brand-success, 15%);
+  }
+}
+
 //////////////////////////////////////////////
 //  SIMPLE BTNS
 ///////
@@ -149,7 +185,7 @@
   -webkit-user-select: none;
 
   &:hover {
-    @include box-shadow(0px 0px 1px 2px rgba(0, 0, 0, 0.2));
+    @include box-shadow(0px 1px 0px 1px rgba(0, 0, 0, 0.2));
   }
   &:active {
     @include box-shadow(none !important);
@@ -497,6 +533,42 @@
   border-bottom: 1px solid $white-google;
 }
 
+.interact__trigger {
+  position: absolute;
+  background: $white-google;
+  //  color: $gray-dark;
+  font-size: 12px;
+  top: 64px;
+  right: 125px;
+  z-index: 999;
+  min-width: 50px;
+  min-height: 50px;
+  @include border-radius($border-radius-large);
+  cursor: pointer;
+  border: 1px solid darken($white-google, 15%);
+
+  &:hover {
+    top: 61px;
+    border-bottom: 4px solid darken($white-google, 15%);
+  }
+  &:active {
+    top: 64px;
+    border-bottom: 1px solid darken($white-google, 15%);
+  }
+
+  > i {
+    padding: 12px 14px;
+  }
+}
+
+.interact__brand-label {
+  color: $white;
+  text-shadow: -1px -1px 0 darken($white-google, 25%),
+  1px -1px 0 darken($white-google, 25%),
+  -1px 1px 0 darken($white-google, 25%),
+  1px 1px 0 darken($white-google, 25%);
+}
+
 //////////////////////////////////////////////
 //  BANNER SHIT
 ///////
@@ -508,8 +580,21 @@
   right: 0;
   min-height: 40px;
   max-height: 40px;
-  @include box-shadow(0px 2px 1px 3px rgba(0, 0, 0, 0.2));
+  @include box-shadow(3px 4px 4px 3px rgba(0, 0, 0, 0.3));
+
+  &.banner--expanded {
+    min-height: 73px !important;
+    max-height: 73px !important;
+    @include animation(fadeInDown 0.2s ease-out);
+  }
 }
+
+//
+//.banner--expanded {
+//  min-height: 65px !important;
+//  max-height: 65px !important;
+//  @include box-shadow(0px 2px 1px 3px rgba(0, 0, 0, 0.2));
+//}
 
 .banner--ani {
   @include animation(pulseBlue 1s infinite);
@@ -522,7 +607,7 @@
 
 .banner--off-white {
   color: $gray-dark !important;
-  background: $white-google !important;
+  background: $white !important;
 }
 
 .banner--lrg {

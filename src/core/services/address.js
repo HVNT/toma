@@ -19,13 +19,13 @@ angular.module('thotpod.services')
             this.posAccuracy = data.posAccuracy || null;
 
             /* physical address */
-            this.street1 = data.street1 || null;
+            this.street1 = data.street1 || "Not found";
             this.street2 = data.street2 || null;
             this.neighborhood = data.neighborhood || null;
             this.city = data.city || null;
             this.state = data.state || null;
             this.stateAbbrev = data.stateAbbrev || null;
-            this.zip = data.zip || null;
+            this.zip = data.zip || "Not found";
             this.county = data.county || null;
 
             /* status */
@@ -36,7 +36,6 @@ angular.module('thotpod.services')
             this.zillowComps = data.zillowComps || [];
 
             /* transformed address for UI */
-            this.transformedAddress = null;
         };
 
         /* Statuses
@@ -50,10 +49,6 @@ angular.module('thotpod.services')
 
         Address.prototype.mostPreciseForZillow = function () {
             return this.neighborhood || this.zip;
-        };
-
-        Address.prototype.transformAddress = function () {
-            this.transformedAddress = this.street1 + ', ' + this.city + ', ' + this.stateAbbrev + ' ' + this.zip;
         };
 
         Address.prototype.getDeepCompsZillow = function () {
