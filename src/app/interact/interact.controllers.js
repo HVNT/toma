@@ -6,10 +6,10 @@
  * File:
  */
 angular.module('thotpod.toma')
-    .controller('InteractCtrl', function ($scope, $window, $state, $http, $q, Environment, Geocoder, Address) {
+    .controller('InteractCtrl', function ($scope, $window, $state, $http, $q, Environment, Geocoder, Address, $modal) {
         //vars
         $scope.title = {
-            confirmLead: 'See how much your neighbor\'s home sold for!',
+            confirmLead: 'Click allow to see how much your neighbor\'s home sold for!',
             confirmAxn: 'Click here',
             correctLead: 'Our system returned ',
             correctEnd: ' as your address.',
@@ -79,14 +79,9 @@ angular.module('thotpod.toma')
             console.log(err);
         });
 
-        // list view shit
-        $scope.interactHidden = false;
-        $scope.toggleHiddenComps = function () {
-            $scope.interactHidden = !$scope.interactHidden;
-            console.log($scope.interactHidden);
-        };
-
         $scope.confirmAddress = function () {
+            $scope.showingEditGeoAddress = false;
+            $scope.activeAddress.activated = true; // reduntant to do every time but fuck it whatever 4nowz
 
             //post to craigg
             $scope.activeAddress.newVisit().then(
@@ -107,6 +102,28 @@ angular.module('thotpod.toma')
                 }
             );
         };
+
+        $scope.openInteractModal = function () {
+            $modal.open({
+                backdrop: true,
+                templateUrl: '/app/interact/templates/interact.modal.html',
+                controller: 'InteractModalCtrl',
+                resolve: {
+                    activeAddress: function () {
+                        return $scope.activeAddress;
+                    }
+                }
+            }).result.then(function () {
+                })
+        };
+
+
+
+    })
+    .controller('InteractModalCtrl',
+    function ($scope, $http, $modalInstance, $timeout, activeAddress) {
+        // vars
+        $scope.activeAddress = activeAddress;
 
         // details view shit
         $scope.showCompDetails = false;
@@ -131,4 +148,8 @@ angular.module('thotpod.toma')
             $scope.activeAddress.status = 'rGeocoded';
         };
 
+        //modal macro controls
+        $scope.interactModalClose = function () {
+            $modalInstance.close();
+        };
     });

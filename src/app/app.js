@@ -74,25 +74,18 @@ angular.module('thotpod.toma',
             $rootScope.rootState.loading = false;
             $rootScope.rootState.loaded = true;
         });
-    })
-    .controller('AppCtrl',
-    function ($scope, $modal) {
-        $scope.openFeedbackModal = function () {
-            $modal.open({
-                backdrop: true,
-                keyboard: true,
-                backdropClick: true,
-                dialogFade: true,
-                backdropFade: true,
-                templateUrl: '/app/interact/templates/interact.modal.html?v=' + Date.now().feedback,
-                controller: 'InteractModalCtrl'
-            });
-        };
-    })
-    .controller('InteractModalCtrl',
-        function ($scope, $http, $modalInstance, $timeout, Environment, User) {
-
-            $scope.close = function () {
-                $modalInstance.close();
-            };
-        });
+    });
+//    .controller('AppCtrl',
+//    function ($scope, $modal) {
+//        $scope.openFeedbackModal = function () {
+//            $modal.open({
+//                backdrop: true,
+//                keyboard: true,
+//                backdropClick: true,
+//                dialogFade: true,
+//                backdropFade: true,
+//                templateUrl: '/app/interact/templates/interact.modal.html?v=' + Date.now().feedback,
+//                controller: 'InteractModalCtrl'
+//            });
+//        };
+//    });

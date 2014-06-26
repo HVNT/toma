@@ -13,7 +13,7 @@
                 {{title.confirmLead}}
             </div>
             <div class="pull-right col-lg-2">
-                {{title.confirmAxn}} <i class="fa fa-hand-o-up" style="padding-left:9px;"></i>
+                <!--{{title.confirmAxn}} <i class="fa fa-hand-o-up" style="padding-left:9px;"></i>-->
             </div>
         </div>
 
@@ -30,30 +30,36 @@
             </div>
 
             <div ng-show="showingEditGeoAddress">
-                <div class="col-lg-offset-1 col-lg-3" style="margin-top: -1px; opacity: .90;">
-                    Help us get your address right by <strong>editing</strong> what we got.
+                <div class="col-lg-offset-1 col-lg-3"
+                     style="margin-top: -1px; opacity: .90; padding-left: 37px !important; padding-top: 30px !important;">
+                    Help us get your address correct.
+                    <!--correct <strong>editing</strong> what we got.-->
                 </div>
                 <div class="col-lg-8">
                     <form novalidate class="form-horizontal" name="editAddressForm">
                         <div class="form-group row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-2">
                                 <label class="form-input__label">Street:</label>
-                                <input type="text" class="form-input form-input--brand-border form-input--white form-input--sml gutter-half-left"
+                                <input type="text"
+                                       class="form-input form-input--brand-border form-input--white form-input--sml"
                                        placeholder="P Sherman 42 Wallaby Way" ng-model="activeAddress.street1">
                             </div>
                             <div class="col-lg-2">
                                 <label class="form-input__label">City:</label>
-                                <input type="text" class="form-input form-input--brand-border form-input--white form-input--sml gutter-half-left"
+                                <input type="text"
+                                       class="form-input form-input--brand-border form-input--white form-input--sml"
                                        placeholder="Sydney" ng-model="activeAddress.city">
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <label class="form-input__label">State:</label>
-                                <input type="text" class="form-input form-input--brand-border form-input--white form-input--sml gutter-half-left"
+                                <input type="text"
+                                       class="form-input form-input--brand-border form-input--white form-input--sml"
                                        placeholder="SY" ng-model="activeAddress.stateAbbrev">
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <label class="form-input__label">Zip:</label>
-                                <input type="text" class="form-input form-input--brand-border form-input--white form-input--sml gutter-half-left"
+                                <input type="text"
+                                       class="form-input form-input--brand-border form-input--white form-input--sml"
                                        placeholder="20000" ng-model="activeAddress.zip">
                             </div>
                         </div>
@@ -63,6 +69,36 @@
                         </button>
                     </form>
                 </div>
+                <!--<div class="col-lg-8">-->
+                <!--<form novalidate class="form-horizontal" name="editAddressForm">-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-lg-5">-->
+                <!--<label class="form-input__label">Street:</label>-->
+                <!--<input type="text" class="form-input form-input--brand-border form-input--white form-input--sml"-->
+                <!--placeholder="P Sherman 42 Wallaby Way" ng-model="activeAddress.street1">-->
+                <!--</div>-->
+                <!--<div class="col-lg-2">-->
+                <!--<label class="form-input__label">City:</label>-->
+                <!--<input type="text" class="form-input form-input--brand-border form-input--white form-input--sml"-->
+                <!--placeholder="Sydney" ng-model="activeAddress.city">-->
+                <!--</div>-->
+                <!--<div class="col-lg-1">-->
+                <!--<label class="form-input__label">State:</label>-->
+                <!--<input type="text" class="form-input form-input--brand-border form-input--white form-input--sml"-->
+                <!--placeholder="SY" ng-model="activeAddress.stateAbbrev">-->
+                <!--</div>-->
+                <!--<div class="col-lg-1">-->
+                <!--<label class="form-input__label">Zip:</label>-->
+                <!--<input type="text" class="form-input form-input--brand-border form-input--white form-input--sml"-->
+                <!--placeholder="20000" ng-model="activeAddress.zip">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<button class="simple-btn simple-btn--success form__btn-success" ng-click="confirmAddress()">-->
+                <!--That's it!-->
+                <!--&lt;!&ndash;<i class="fa fa-check"></i>&ndash;&gt;-->
+                <!--</button>-->
+                <!--</form>-->
+                <!--</div>-->
             </div>
 
         </div>
@@ -76,7 +112,7 @@
     </div>
 </div>
 
-<div class="interact__trigger text-center" ng-show="activeAddress.status == 'confirmed'">
+<div class="interact__trigger text-center" ng-show="activeAddress.status == 'confirmed'" ng-click="openInteractModal()">
     <div style="padding-top: 15px;" class="interact__brand-label"><strong>toma.</strong></div>
 </div>
 
@@ -184,6 +220,7 @@
 <!--<label>Last Renovated: </label><span-->
 <!--class="pull-right"> {{activeComp.lastUpdated | date}}</span>-->
 <!--</div>-->
+
 <!--<p>Finances: </p>-->
 
 <!--<div class="interact__comp-stats">-->

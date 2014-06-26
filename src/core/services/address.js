@@ -35,7 +35,8 @@ angular.module('thotpod.services')
             this.zpid = data.zpid || null;
             this.zillowComps = data.zillowComps || [];
 
-            /* transformed address for UI */
+            /* if confirmed address or updated and That's it! */
+            this.activated = false;
         };
 
         /* Statuses
