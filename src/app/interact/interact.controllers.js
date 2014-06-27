@@ -6,73 +6,82 @@
  * File:
  */
 angular.module('thotpod.toma')
-    .controller('InteractCtrl', function ($scope, $window, $state, $http, $q, Environment, Geocoder, Address) {
-
-        $scope.activeAddress = new Address({}); // init empty activeAddress
-
-        $scope.session = {
-            geoSupport: $window.navigator
+    .controller('InteractCtrl', function ($scope, $window, $state, $http, $q, Environment, Geocoder, Address, $modal) {
+        //vars
+        $scope.title = {
+            confirmLead: 'Click allow to see how much your neighbor\'s home sold for!',
+            confirmAxn: 'Click here',
+            correctLead: 'Our system returned ',
+            correctEnd: ' as your address.',
+            correctAxn: 'Did we get your address right?'
         };
 
-        function initialize() {
-            reverseGeocode();
-        }
+        $scope.showingEditGeoAddress = false;
+        $scope.toggleEditGeoAddress = function () {
+            $scope.showingEditGeoAddress = !$scope.showingEditGeoAddress;
+        };
 
+        //begin
         initialize();
 
-        function reverseGeocode() {
-
-            window.navigator.geolocation.getCurrentPosition(function (position) {
-
-                $scope.$apply(function () {
-                    //set returned vals to active model
-                    $scope.activeAddress.lat = position.coords.latitude;
-                    $scope.activeAddress.lng = position.coords.longitude;
-                    $scope.activeAddress.posAccuracy = position.coords.accuracy;
-
-                    //set status
-                    $scope.activeAddress.status = 'pGiven';
-                });
-
-                Geocoder.reverseGeocode(
-                    {
-                        latitude: $scope.activeAddress.lat,
-                        longitude: $scope.activeAddress.lng
-                    }).then(function (response) {
-                        //set returned vals to active model
-                        $scope.activeAddress.street1 = response.street1;
-                        $scope.activeAddress.city = response.city;
-                        $scope.activeAddress.state = response.state;
-                        $scope.activeAddress.stateAbbrev = response.stateAbbrev;
-                        $scope.activeAddress.zip = response.zip;
-                        $scope.activeAddress.county = response.county;
-
-                        //transform address for textarea
-                        $scope.transformedAddress = $scope.activeAddress.transformAddress();
-
-                        //set status
-                        $scope.activeAddress.status = 'rGeocoded';
-
-                        console.log($scope.activeAddress);
-                    }, function (err) {
-                        //status stays at pGiven
-                        console.log(err);
-                    });
-            }, function (err) {
-                //set status
-                $scope.activeAddress.status = 'pDenied'; //?
-                console.log(err);
-            });
+        function initialize() {
+            if (!$scope.session && !$scope.activeAddress) {
+                initVars();
+            }
         }
 
-        // list view shit
-        $scope.interactHidden = false;
-        $scope.toggleHiddenComps = function () {
-            $scope.interactHidden = !$scope.interactHidden;
-            console.log($scope.interactHidden);
-        };
+        function initVars() {
+            //or's are reduntant but fuck it better be safer than sorry
+
+            //session geoSupport
+            $scope.session = $scope.session || { geoSupport: $window.navigator};
+            //active Address
+            $scope.activeAddress = $scope.activeAddress || new Address({});
+
+        }
+
+        window.navigator.geolocation.getCurrentPosition(function (position) {
+
+            $scope.$apply(function () {
+                //set returned vals to active model
+                $scope.activeAddress.lat = position.coords.latitude;
+                $scope.activeAddress.lng = position.coords.longitude;
+                $scope.activeAddress.posAccuracy = position.coords.accuracy;
+
+                //set status
+                $scope.activeAddress.status = 'rGeocoded'; // fuck it just trust that shit will work
+            });
+
+            Geocoder.reverseGeocode(
+                {
+                    latitude: $scope.activeAddress.lat,
+                    longitude: $scope.activeAddress.lng
+                }).then(function (response) {
+                    //set returned vals to active model
+                    $scope.activeAddress.street1 = response.street1;
+                    $scope.activeAddress.city = response.city;
+                    $scope.activeAddress.state = response.state;
+                    $scope.activeAddress.stateAbbrev = response.stateAbbrev;
+                    $scope.activeAddress.zip = response.zip;
+                    $scope.activeAddress.county = response.county;
+                    //set status
+//                        $scope.activeAddress.status = 'rGeocoded';
+
+                    console.log($scope.activeAddress);
+                }, function (err) {
+                    //status stays at pGiven
+                    console.log(err);
+                });
+
+        }, function (err) {
+            //set status
+            $scope.activeAddress.status = 'pDenied'; //?
+            console.log(err);
+        });
 
         $scope.confirmAddress = function () {
+            $scope.showingEditGeoAddress = false;
+            $scope.activeAddress.activated = true; // reduntant to do every time but fuck it whatever 4nowz
 
             //post to craigg
             $scope.activeAddress.newVisit().then(
@@ -93,6 +102,28 @@ angular.module('thotpod.toma')
                 }
             );
         };
+
+        $scope.openInteractModal = function () {
+            $modal.open({
+                backdrop: true,
+                templateUrl: '/app/interact/templates/interact.modal.html',
+                controller: 'InteractModalCtrl',
+                resolve: {
+                    activeAddress: function () {
+                        return $scope.activeAddress;
+                    }
+                }
+            }).result.then(function () {
+                })
+        };
+
+
+
+    })
+    .controller('InteractModalCtrl',
+    function ($scope, $http, $modalInstance, $timeout, activeAddress) {
+        // vars
+        $scope.activeAddress = activeAddress;
 
         // details view shit
         $scope.showCompDetails = false;
@@ -117,4 +148,8 @@ angular.module('thotpod.toma')
             $scope.activeAddress.status = 'rGeocoded';
         };
 
+        //modal macro controls
+        $scope.interactModalClose = function () {
+            $modalInstance.close();
+        };
     });

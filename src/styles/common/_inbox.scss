@@ -58,14 +58,15 @@
 //  FORM INPUT FIELDS
 ///////
 
-
 .form-input {
   font-size: 12px;
   font-weight: bold;
   background: $white-google;
   @include box-shadow(none !important);
-  @include border-radius($border-radius-small);
+  @include border-radius($border-radius-base);
   border: none;
+  display: inline;
+  padding: 7px 9px;
 
   &:focus {
     border: 1px solid $gray-light;
@@ -73,8 +74,17 @@
   }
 
   &:hover:not(:focus) {
-    background: $gray-light;
+    background: $white-google;
   }
+}
+
+.form-input--brand-border {
+  border: 1px solid rgba(47, 49, 146, .4); // wilkinson era;
+}
+
+.form-input--sml {
+  font-size: 11px;
+  max-height: 27px;
 }
 
 .form-input--white {
@@ -91,7 +101,6 @@
 }
 
 .form-input--btn {
-  position: absolute;
   background: $gray-dark;
   color: $gray-lighter;
   z-index: 3;
@@ -121,13 +130,38 @@
   right: 15px;
 }
 
+.form-input__label {
+  padding-right: $grid-gutter-width;
+  display: block;
+  text-align: left;
+}
+
+.form__btn-success {
+  position: absolute;
+  top: 24px;
+  right: 247px;
+  min-width: 52px;
+  min-height: 29px;
+  @include border-radius($border-radius-base);
+  border: 1px solid darken($brand-success, 15%);
+
+  &:hover {
+    top: 22px;
+    border-bottom: 3px solid darken($brand-success, 15%);
+  }
+  &:active {
+    top: 24px;
+    border-bottom: 1px solid darken($brand-success, 15%);
+  }
+}
+
 //////////////////////////////////////////////
 //  SIMPLE BTNS
 ///////
 
 .simple-btn {
   background: $white-google;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -150,7 +184,7 @@
   -webkit-user-select: none;
 
   &:hover {
-    @include box-shadow(0px 0px 1px 2px rgba(0, 0, 0, 0.2));
+    @include box-shadow(0px 1px 0px 1px rgba(0, 0, 0, 0.2));
   }
   &:active {
     @include box-shadow(none !important);
@@ -172,8 +206,45 @@
   color: $white;
 }
 
+//////////////////////////////////////////////
+//  FLAT BTNS
+///////
 
+.flat-btn {
 
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0 8px;
+  text-align: center;
+  transition: all .218s;
+  -moz-transition: all .218s;
+  -moz-user-select: none;
+  -o-transition: all .218s;
+  -webkit-transition: all .218s;
+  -webkit-user-select: none;
+}
+
+.flat-btn--success {
+  color: $brand-success !important;
+
+  &:hover {
+    text-shadow: 0 1px 1px darken($brand-success, 25%);
+  }
+  &:active {
+    text-shadow: none;
+  }
+}
+
+.flat-btn--danger {
+  color: $brand-danger !important;
+
+  &:hover {
+    text-shadow: 0 2px 1px darken($brand-danger, 25%);
+  }
+  &:active {
+    text-shadow: none;
+  }
+}
 
 //////////////////////////////////////////////
 //  GROUP EDITOR
@@ -275,18 +346,13 @@
 //  INTERACT SHIT
 ///////
 .interact {
-  position: absolute;
   top: $grid-gutter-width * 4;
   right: $grid-gutter-width;
   z-index: 999;
-  max-width: 200px;
-  width: 200px;
   background: white;
 
   > .interact__address {
-    position: absolute;
     top: 0;
-    right: 45px;
     resize: none;
     min-height: 75px;
     max-height: 75px;
@@ -312,7 +378,7 @@
   right: 0;
 
   background: rgb(47, 49, 146); // wilkinson era
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -370,23 +436,21 @@
 }
 
 .interact__list {
-  position: absolute;
-  top: 80px;
-  max-height: 300px;
   border: 1px solid $white-google;
   background: white;
-  
+
   > ul > li {
     padding: 5px;
     border-bottom: 1px solid $white-google;
   }
 
   > ul > li > img {
-    padding-right: 5px;
+    padding-right: 25px;
     border-right: 1px solid $white-google;
-    margin-right: 5px;
-    max-width: 50px;
-    max-height: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
+    max-width: 100px;
+    max-height: 100px;
   }
 
   label {
@@ -408,9 +472,6 @@
 }
 
 .interact__comp-details {
-  position: absolute;
-  top: 80px;
-  max-height: 300px;
   border: 1px solid $white-google;
   background: white;
 
@@ -419,13 +480,12 @@
   }
 
   p {
-    margin: 20px 0px 10px 5px;
     border-bottom: 1px solid $white-google;
     color: rgb(47, 49, 146); // wilkinson era
   }
 
   span {
-     margin-right: $grid-gutter-width;
+    margin-right: $grid-gutter-width;
   }
 
   .interact__comp-main-img > img {
@@ -461,20 +521,86 @@
   border-bottom: 1px solid $white-google;
 }
 
+.interact__trigger {
+  position: absolute;
+  background: #666;
+  font-size: 12px;
+  top: 64px;
+  right: 125px;
+  z-index: 999;
+  min-width: 50px;
+  min-height: 50px;
+  @include border-radius($border-radius-large);
+  cursor: pointer;
+  border: 1px solid darken(#666, 15%);
+  @include animation(fadeIn 0.5s ease);
+  &:hover {
+    top: 61px;
+    border-bottom: 4px solid darken(#666, 15%);
+  }
+  &:active {
+    top: 64px;
+    border-bottom: 1px solid darken(#666, 15%);
+  }
+
+  > i {
+    padding: 12px 14px;
+  }
+}
+
+.interact__brand-label {
+  text-decoration: none;
+  color: $white;
+  text-shadow: -1px -1px 0 darken(#666, 25%),
+  1px -1px 0 darken(#666, 25%),
+  -1px 1px 0 darken(#666, 25%),
+  1px 1px 0 darken(#666, 25%);
+}
+
 //////////////////////////////////////////////
 //  BANNER SHIT
 ///////
 .banner {
-  z-index:999;
+  z-index: 999;
   position: absolute;
-  top:0;
-  left:0;
-  right:0;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 40px;
+  max-height: 40px;
+  @include box-shadow(3px 4px 4px 3px rgba(0, 0, 0, 0.3));
+
+  &.banner--expanded {
+    min-height: 73px !important;
+    max-height: 73px !important;
+    @include animation(fadeInDown 0.2s ease-out);
+  }
+}
+
+//
+//.banner--expanded {
+//  min-height: 65px !important;
+//  max-height: 65px !important;
+//  @include box-shadow(0px 2px 1px 3px rgba(0, 0, 0, 0.2));
+//}
+
+.banner--ani {
+  @include animation(pulseBlue 1s infinite);
+}
+
+.banner--wilkinson {
   background: rgb(47, 49, 146); // wilkinson era
   color: white;
-  min-height: 30px;
-  max-height: 30px;
-  @include animation(pulseBlue 1s infinite);
+}
+
+.banner--off-white {
+  color: $gray-dark !important;
+  background: $white !important;
+}
+
+.banner--lrg {
+  min-height: 60px;
+  max-height: 60px;
 }
 
 //////////////////////////////////////////////
@@ -491,22 +617,36 @@
   margin: -250px 0 0 -280px;
   background-color: $white;
   border: 1px solid $gray;
-  border: 1px solid $gray;
   @include border-radius(2px);
-  @include box-shadow(0 3px 7px rgba(0,0,0,0.3));
+  @include box-shadow(0 3px 7px rgba(0, 0, 0, 0.3));
   @include background-clip(padding-box);
   &.fade {
     @include transition(#{opacity .3s linear, top .3s ease-out});
     top: -25%;
   }
-  &.fade.in { top: 50%; }
+  &.fade.in {
+    top: 50%;
+  }
+
+  .interact-modal-header {
+    padding: $grid-gutter-width;
+    border-bottom: 1px solid darken($white-google, 15%);
+    background: $white-google;
+    // Close icon
+    .close { margin-top: 2px; }
+    // Heading
+    h3 {
+      margin: 0;
+      line-height: 30px;
+    }
+  }
 }
 
 // Body (where all modal content resides)
 .interact-modal-body {
   overflow-y: auto;
-  max-height: 400px;
-  padding: 15px;
+  max-height: 350px;
+  min-height: 350px;
 }
 
 // Footer (for actions)

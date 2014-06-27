@@ -1,8 +1,145 @@
 <div class="feedback-modal">
-    <i class="fa fa-times icon-btn--plain-danger pull-right" style="padding: 4px 4px 0px 0px;" ng-click="close()"></i>
+    <div class="interact-modal-header row" style="margin:0 !important;">
+        <div class="col-lg-8" style="padding: 15px 0px 15px 25px;">
+            {{ activeAddress.street1 + ', ' + activeAddress.city + ', ' +
+            activeAddress.stateAbbrev + ' ' + activeAddress.zip}}
+        </div>
+        <div class="col-lg-1 col-lg-offset-2" style="padding-top: 10px; padding-left: 23px;">
+            <!--<button class="simple-btn simple-btn--success hint--left" data-hint="Edit address"-->
+            <!--ng-click="editActiveAddress()">-->
+            <!--<i class="fa fa-edit"></i>-->
+            <!--</button>-->
+
+            <button class="simple-btn simple-btn--wilkinson pull-left hint--right" data-hint="Back"
+                    ng-if="activeAddress.status === 'confirmed' && showCompDetails" ng-click="goInteractList()">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+        </div>
+        <i class="fa fa-times icon-btn--plain-danger pull-right" style="padding: 8px 8px;"
+           ng-click="interactModalClose()"></i>
+    </div>
     <div class="interact-modal-body">
-        <p class="gutter-bottom">Want to fuck REscour?  Need help?  <strong>Please let us know.</strong></p>
+        <!-- COMP LIST -->
+        <div class="interact__list scroll-container" ng-if="activeAddress.status === 'confirmed' && !showCompDetails">
+            <ul>
+                <li ng-repeat="comp in activeAddress.zillowComps">
+                    <img src="{{comp.imgs[0]}}" style="float:left;">
+                    <span class="interact__comp-address">
+                        <a href="#" ng-click="goInteractCompDetails(comp)">{{comp.address.street1 + ', ' +
+                            comp.address.city + ', ' +
+                            comp.address.stateAbbrev + ' ' + comp.address.zip}}</a>
+                    </span>
+
+                    <div class="interact__comp-stats">
+                        <label>Beds: </label> {{comp.bedrooms}}, <label>Baths: </label> {{comp.bathrooms}}
+                    </div>
+                    <div class="interact__comp-stats">
+                        <label>Zestimate: </label> {{comp.zestimate | currency}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- COMP DETAILS -->
+        <div class="interact interact--confirmed" ng-if="activeAddress.status === 'confirmed' && showCompDetails">
+            <div class="scroll-container interact__comp-details">
+                <div class="interact__comp-address row gutter-top">
+                    <div class="col-lg-12" style="padding-left: 30px; font-size: 13px;">
+                        <strong>{{activeComp.address.street1}}
+                        {{activeComp.address.city + ', ' + activeComp.address.stateAbbrev + ' ' + activeComp.address.zip}}</strong>
+                    </div>
+                </div>
+                <div class="interact__comp-imgs-container row gutter-top">
+                    <div class="col-lg-6" style="padding-left: 20px;">
+                        <div class="interact__comp-main-img">
+                            <img src="{{activeCompImg}}">
+                        </div>
+                        <div class="interact__comp-imgs">
+                            <ul>
+                                <li ng-repeat="img in activeComp.imgs" style="margin-right:5px;">
+                                    <img src="{{img}}" ng-click="selectCompImg(img)">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <p class="gutter-half-bottom">Metrics: </p>
+
+                        <div class="interact__comp-stats">
+                            <label>Bedrooms: </label><span class="pull-right"> {{activeComp.bedrooms}}</span>
+                        </div>
+                        <div class="interact__comp-stats">
+                            <label>Bathrooms: </label><span class="pull-right"> {{activeComp.bathrooms}}</span>
+                        </div>
+                        <div class="interact__comp-stats">
+                            <label>Lot Size (SqFt): </label><span class="pull-right"> {{activeComp.lotSizeSqFt}}</span>
+                        </div>
+                        <div class="interact__comp-stats">
+                            <label>Lot Size (SqFt): </label><span class="pull-right"> {{activeComp.lotSizeSqFt}}</span>
+                        </div>
+                        <div class="interact__comp-stats">
+                            <label>Year Built: </label><span class="pull-right"> {{activeComp.yearBuilt}}</span>
+                        </div>
+                        <div class="interact__comp-stats">
+                            <label>Last Renovated: </label><span
+                                class="pull-right"> {{activeComp.lastUpdated | date}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutter-top" style="padding-left: 20px;">
+                    <p>Finances: </p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6" style="padding-left: 20px;">
+
+                        <div class="interact__comp-stats gutter-half-top">
+                            <label>Zestimate: </label><span class="pull-right"> {{activeComp.zestimate | currency}}</span>
+                        </div>
+                        <div class="interact__comp-stats gutter-half-top">
+                            <label>Valuation Range</label><br/>
+
+                            <div style="margin-left:20px;">
+                                <label>Low: </label> <span
+                                    class="pull-right">{{activeComp.valuationRange.low | currency}}</span>
+                            </div>
+                            <div style="margin-left:20px;">
+                                <label>High: </label> <span
+                                    class="pull-right">{{activeComp.valuationRange.high | currency}}</span>
+                            </div>
+                            <div style="margin-left: 20px">
+                                <label>Percentile: </label><span class="pull-right"> {{activeComp.valuationRange.percentile | percentage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 gutter-half-top">
+                        <div class="interact__comp-stats">
+                            <label>Last Sold: </label><br/>
+
+                            <div style="margin-left:20px;">
+                                <label>Date: </label> <span class="pull-right">{{activeComp.lastSoldDate | date}}</span>
+                            </div>
+                            <div style="margin-left:20px;">
+                                <label>Price: </label> <span
+                                    class="pull-right">{{activeComp.lastSoldPrice | currency}}</span>
+                            </div>
+                        </div>
+                        <div class="interact__comp-stats gutter-half-top">
+                            <label>Tax Assessment</label><br/>
+
+                            <div style="margin-left:20px;">
+                                <label>Year: </label> <span class="pull-right">{{activeComp.taxAssessmentYear}}</span>
+                            </div>
+                            <div style="margin-left:20px;">
+                                <label>Assessment: </label> <span
+                                    class="pull-right">{{activeComp.taxAssessment | currency}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="interact-modal-footer">
-    </div>
+    <!--<div class="interact-modal-footer">-->
+    <!--</div>-->
 </div>
