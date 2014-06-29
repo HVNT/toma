@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                 ],
                 tasks: ['copy:environment']
             },
-            template: {
+            template: { // not doing shit right now, todo
                 files: [
                     '<%= yeoman.app %>/{,**/}*.template'
                 ],
@@ -74,52 +74,26 @@ module.exports = function (grunt) {
             options: {
                 dot: true
             },
-            local: {
+            dist: {
+                files: [{
+                    src: [
+                        '<%= yeoman.dist %>',
+                        '!<%= yeoman.dist %>/.git*'
+                    ]
+                }]
+            },
+            stage: {
                 files: [{
                     src: [
                         '<%= yeoman.stage %>'
                     ]
                 }]
             },
-            demo: {
-                files: [{
-                    src: [
-                        '<%= yeoman.stage %>',
-                        '<%= yeoman.dist %>/demo/*',
-                        '<%= yeoman.dist %>/dev/*',
-                        '<%= yeoman.dist %>/prod/*',
-                        '!<%= yeoman.dist %>/.git*'
-                    ]
-                }]
-            },
-            prod: {
-                files: [{
-                    src: [
-                        '<%= yeoman.stage %>',
-                        '<%= yeoman.dist %>/demo/*',
-                        '<%= yeoman.dist %>/dev/*',
-                        '<%= yeoman.dist %>/prod/*',
-                        '!<%= yeoman.dist %>/.git*'
-                    ]
-                }]
-            },
-            dev: {
-                files: [{
-                    src: [
-                        '<%= yeoman.stage %>',
-                        '<%= yeoman.dist %>/demo/*',
-                        '<%= yeoman.dist %>/dev/*',
-                        '<%= yeoman.dist %>/prod/*',
-                        '!<%= yeoman.dist %>/.git*'
-                    ]
-                }]
-            },
             template: {
-                files: [{
-                    src: [
-                        '<%= yeoman.stage %>/*.template'
-                    ]
-                }]
+                files: [
+                    '<%= yeoman.app %>/{,**/}*.template'
+                ],
+                tasks: ['']
             }
         },
         compass: {
@@ -145,12 +119,28 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            local: {
+            toStage: {
                 files: [{
                     expand: true,
                     dot: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.stage %>',
+                    src: [
+                        'app/**/*',
+                        'components/**/*',
+                        'environment/**/*',
+                        'core/**/*',
+                        'assets/**/*',
+                        '*.html*'
+                    ]
+                }]
+            },
+            toDist: {
+              files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.stage %>',
+                    dest: '<%= yeoman.dist %>',
                     src: [
                         'app/**/*',
                         'components/**/*',
@@ -204,181 +194,9 @@ module.exports = function (grunt) {
                         'environment/**/*'
                     ]
                 }]
-            },
-            dev: {
-                files: [
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/dev',
-                        src: [
-                            'assets/**/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        flatten: true,
-                        cwd: './',
-                        dest: '<%= yeoman.dist %>/dev/scripts',
-                        src: [
-                            '<%= yeoman.stage %>/scripts/scripts.js'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        flatten: true,
-                        cwd: './',
-                        dest: '<%= yeoman.dist %>/dev/styles',
-                        src: [
-                            '<%= yeoman.stage %>/styles/main.css'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.app %>',
-                        dest: '<%= yeoman.dist %>/dev',
-                        src: [
-                            'components/**/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/dev',
-                        src: [
-                            '**/*.html'
-                        ]
-                    }
-                ]
-            },
-            demo: {
-                files: [
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/demo',
-                        src: [
-                            'assets/**/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        flatten: true,
-                        cwd: './',
-                        dest: '<%= yeoman.dist %>/demo/scripts',
-                        src: [
-                            '<%= yeoman.stage %>/scripts/scripts.js'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        flatten: true,
-                        cwd: './',
-                        dest: '<%= yeoman.dist %>/demo/styles',
-                        src: [
-                            '<%= yeoman.stage %>/styles/main.css'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.app %>',
-                        dest: '<%= yeoman.dist %>/demo',
-                        src: [
-                            'components/**/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/demo',
-                        src: [
-                            '**/*.html'
-                        ]
-                    }
-                ]
-            },
-            prod: {
-                files: [
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/prod',
-                        src: [
-                            'assets/**/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        flatten: true,
-                        cwd: './',
-                        dest: '<%= yeoman.dist %>/prod/scripts',
-                        src: [
-                            '<%= yeoman.stage %>/scripts/scripts.js'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        flatten: true,
-                        cwd: './',
-                        dest: '<%= yeoman.dist %>/prod/styles',
-                        src: [
-                            '<%= yeoman.stage %>/styles/main.css'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.app %>',
-                        dest: '<%= yeoman.dist %>/prod',
-                        src: [
-                            'components/**/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/prod',
-                        src: [
-                            '**/*.html'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: false,
-                        flatten: false,
-                        cwd: '<%= yeoman.stage %>',
-                        dest: '<%= yeoman.dist %>/prod',
-                        src: [
-                            'config/**/*'
-                        ]
-                    }
-                ]
             }
         },
-        concat: {
+        concat: { // revisit
             demo: {
                 'src': [
                     '<%= yeoman.stage %>/app/**/*.js',
@@ -391,11 +209,11 @@ module.exports = function (grunt) {
             },
             mock: {
                 src: [
-                    '<%= yeoman.dist %>/demo/scripts/scripts.js',
+                    '<%= yeoman.stage %>/demo/scripts/scripts.js',
                     '<%= yeoman.app %>/components/angular-mocks/angular-mocks.js',
                     '<%= yeoman.app %>/app/mock.js'
                 ],
-                dest: '<%= yeoman.dist %>/demo/scripts/scripts.js'
+                dest: '<%= yeoman.stage %>/demo/scripts/scripts.js'
             }
         },
         template: {
@@ -438,56 +256,23 @@ module.exports = function (grunt) {
             }
         },
         rev: {
-            demo: {
-                files: {
-                    src: [
-                        '<%= yeoman.dist %>/demo/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/demo/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/demo/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/demo/styles/fonts/*'
-                    ]
-                }
-            },
-            dev: {
-                files: {
-                    src: [
-                        '<%= yeoman.dist %>/dev/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/dev/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/dev/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/dev/styles/fonts/*'
-                    ]
-                }
-            },
-            prod: {
-                files: {
-                    src: [
-                        '<%= yeoman.dist %>/prod/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/prod/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/prod/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/prod/styles/fonts/*'
-                    ]
-                }
-            }
+            files: {
+                src: [
+                      '<%= yeoman.stage %>/demo/scripts/{,*/}*.js',
+                      '<%= yeoman.stage %>/demo/styles/{,*/}*.css',
+                      '<%= yeoman.stage %>/demo/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                      '<%= yeoman.stage %>/demo/styles/fonts/*'
+                  ]
+             }
         },
         express: {
-            all: {
-                options: {
-                    port: 8000,
-                    hostname: '0.0.0.0',
-                    bases: path.resolve('/.tmp'),
-                    server: path.resolve('./server'),
-                    livereload: true
-                }
-            }
-        },
-        jshint: {
             options: {
-                jshintrc: 'config/.jshintrc'
-            },
-            all: [
-                'Gruntfile.js',
-                '<%= yeoman.app %>/app/{,*/}*.js'
-            ]
+                port: 8000,
+                hostname: '0.0.0.0',
+                bases: path.resolve('/.tmp'),
+                server: path.resolve('./server'),
+                livereload: true
+            }
         },
         karma: {
             unit: {
@@ -504,124 +289,50 @@ module.exports = function (grunt) {
             css: '<%= yeoman.stage %>/styles/main.css'
         },
         usemin: {
-            html: [
-                '<%= yeoman.dist %>/demo/{,*/}*.html',
-                '<%= yeoman.dist %>/dev/{,*/}*.html',
-                '<%= yeoman.dist %>/prod/{,*/}*.html'
-            ],
-            css: [
-                '<%= yeoman.dist %>/demo/styles/{,*/}*.css',
-                '<%= yeoman.dist %>/dev/styles/{,*/}*.css',
-                '<%= yeoman.dist %>/prod/styles/{,*/}*.css'
-            ],
             options: {
                 dirs: [
-                    '<%= yeoman.dist %>/demo',
-                    '<%= yeoman.dist %>/dev',
-                    '<%= yeoman.dist %>/prod'
+                    '<%= yeoman.stage %>'
                 ]
             }
+            html: [
+                '<%= yeoman.stage %>/{,*/}*.html'
+            ],
+            css: [
+                '<%= yeoman.stage %>/styles/{,*/}*.css'
+            ]
         },
         imagemin: {
-            demo: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/assets/img',
-                    src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/demo/assets/img'
-                }]
-            },
-            dev: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/assets/img',
-                    src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/dev/assets/img'
-                }]
-            },
-            prod: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/assets/img',
-                    src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.dist %>/prod/assets/img'
-                }]
-            }
+            files: [{
+                      expand: true,
+                      cwd: '<%= yeoman.app %>/assets/img',
+                      src: '{,*/}*.{png,jpg,jpeg}',
+                      dest: '<%= yeoman.stage %>/assets/img'
+                  }]
         },
         cssmin: {
-            demo: {
-                files: {
-                    '<%= yeoman.dist %>/demo/styles/main.css': [
-                        '<%= yeoman.dist %>/demo/styles/main.css'
-                    ]
-                }
-            },
-            dev: {
-                files: {
-                    '<%= yeoman.dist %>/dev/styles/main.css': [
-                        '<%= yeoman.dist %>/dev/styles/main.css'
-                    ]
-                }
-            },
-            prod: {
-                files: {
-                    '<%= yeoman.dist %>/prod/styles/main.css': [
-                        '<%= yeoman.dist %>/prod/styles/main.css'
-                    ]
-                }
-            }
+            files: {
+                      '<%= yeoman.stage %>/styles/main.css': [
+                          '<%= yeoman.stage %>/styles/main.css'
+                      ]
+                  }
         },
         ngmin: {
-            demo: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.dist %>/demo/scripts',
-                    src: '*.js',
-                    dest: '<%= yeoman.dist %>/demo/scripts'
-                }]
-            },
-            dev: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.dist %>/dev/scripts',
-                    src: '*.js',
-                    dest: '<%= yeoman.dist %>/dev/scripts'
-                }]
-            },
-            prod: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.dist %>/prod/scripts',
-                    src: '*.js',
-                    dest: '<%= yeoman.dist %>/prod/scripts'
-                }]
-            }
+            files: [{
+                      expand: true,
+                      cwd: '<%= yeoman.stage %>/scripts',
+                      src: '*.js',
+                      dest: '<%= yeoman.stage %>/scripts'
+                  }]
         },
         uglify: {
             options: {
                 mangle: false
             },
-            demo: {
-                files: {
-                    '<%= yeoman.dist %>/demo/scripts/scripts.js': [
-                        '<%= yeoman.dist %>/demo/scripts/scripts.js'
+            files: {
+                    '<%= yeoman.stage %>/scripts/scripts.js': [
+                        '<%= yeoman.stage %>/scripts/scripts.js'
                     ]
                 }
-            },
-            dev: {
-                files: {
-                    '<%= yeoman.dist %>/dev/scripts/scripts.js': [
-                        '<%= yeoman.dist %>/dev/scripts/scripts.js'
-                    ]
-                }
-            },
-            prod: {
-                files: {
-                    '<%= yeoman.dist %>/prod/scripts/scripts.js': [
-                        '<%= yeoman.dist %>/prod/scripts/scripts.js'
-                    ]
-                }
-            }
         }
     });
 
@@ -633,14 +344,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('test', [
-        'clean:local',
-        'copy:local',
-        'template:local',
-        'clean:template'
-        // 'karma:unit'
-    ]);
-
     grunt.registerTask('server', [
         'express',
         'open',
@@ -648,35 +351,35 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('local', [
-        'clean:local',
+        'clean:stage',
         'compass:dev',
-        'copy:local',
+        'copy:toStage',
         'template:local',
         'clean:template',
         'server'
     ]);
 
     grunt.registerTask('mock', [
-        'clean:local',
+        'clean:stage',
         'compass:dev',
-        'copy:local',
+        'copy:toStage',
         'template:mock',
         'clean:template',
         'server'
     ]);
 
     grunt.registerTask('dev', [
-        'clean:local',
+        'clean:stage',
         'compass:dev',
-        'copy:local',
+        'copy:toStage',
         'template:local',
         'clean:template',
         'server'
     ]);
 
     grunt.registerTask('buildDemo', [
-        'clean:demo',
-        'copy:local',
+        'clean:stage',
+        'copy:toStage',
         'compass:prod',
         'template:demo',
         'clean:template',
@@ -684,19 +387,20 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
-        'imagemin:demo',
-        'copy:demo',
-        'cssmin:demo',
-        'ngmin:demo',
-        'uglify:demo',
+        'imagemin',
+        'cssmin',
+        'ngmin',
+        'uglify',
         'concat:mock',
-        'rev:demo',
-        'usemin'
+        'rev',
+        'usemin',
+        'clean:dist',
+        'copy:toDist'
     ]);
 
     grunt.registerTask('buildDev', [
-        'clean:dev',
-        'copy:local',
+        'clean:stage',
+        'copy:toStage',
         'compass:prod',
         'template:dev',
         'clean:template',
@@ -704,18 +408,19 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
-        'imagemin:dev',
-        'copy:dev',
-        'cssmin:dev',
-        'ngmin:dev',
-        'uglify:dev',
-        'rev:dev',
-        'usemin'
+        'imagemin',
+        'cssmin',
+        'ngmin',
+        'uglify',
+        'rev',
+        'usemin',
+        'clean:dist',
+        'copy:toDist'
     ]);
 
     grunt.registerTask('buildProd', [
-        'clean:prod',
-        'copy:local',
+        'clean:stage',
+        'copy:toStage',
         'compass:prod',
         'template:prod',
         'clean:template',
@@ -723,12 +428,13 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
-        'imagemin:prod',
-        'copy:prod',
-        'cssmin:prod',
-        'ngmin:prod',
-        'uglify:prod',
-        'rev:prod',
+        'imagemin',
+        'cssmin',
+        'ngmin',
+        'uglify',
+        'rev',
         'usemin'
+        'clean:dist',
+        'copy:toDist'
     ]);
 };
