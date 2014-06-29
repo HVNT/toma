@@ -10,7 +10,7 @@
             <!--<i class="fa fa-edit"></i>-->
             <!--</button>-->
 
-            <button class="simple-btn simple-btn--wilkinson pull-left hint--right" data-hint="Back"
+            <button class="simple-btn simple-btn--wilkinson pull-left hint--left" data-hint="Back"
                     ng-if="activeAddress.status === 'confirmed' && showCompDetails" ng-click="goInteractList()">
                 <i class="fa fa-arrow-left"></i>
             </button>
@@ -22,7 +22,7 @@
         <!-- COMP LIST -->
         <div class="interact__list scroll-container" ng-if="activeAddress.status === 'confirmed' && !showCompDetails">
             <ul>
-                <li ng-repeat="comp in activeAddress.zillowComps">
+                <li ng-repeat="comp in activeAddress.zillowComps" style="padding-top: 10px !important;">
                     <img src="{{comp.imgs[0]}}" style="float:left;">
                     <span class="interact__comp-address">
                         <a href="#" ng-click="goInteractCompDetails(comp)">{{comp.address.street1 + ', ' +

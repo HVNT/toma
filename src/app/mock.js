@@ -22,9 +22,7 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
                     lat: null
                 },
                 imgs: [
-                    'http://photos3.zillow.com/p_d/IShn1suye844b81000000000.jpg',
-                    'http://photos2.zillow.com/p_d/IShjq0vatv8jq11000000000.jpg',
-                    'http://photos2.zillow.com/p_d/ISt0k0crg7krq11000000000.jpg'
+                    '/assets/img/mock_house1a.jpg'
                 ],
                 taxAssessmentYear: 2008,
                 taxAssessment: 105400,
@@ -55,9 +53,9 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
                     lat: null
                 },
                 imgs: [
-                    'http://photos2.zillow.com/p_d/ISyryt7ket85gj.jpg',
-                    'http://photos1.zillow.com/p_d/ISdgtxa84t18hj0000000000.jpg',
-                    'http://photos3.zillow.com/p_d/ISletai2b0416i0000000000.jpg'
+                    '/assets/img/mock_house2a.jpg',
+                    '/assets/img/mock_house2b.jpg',
+                    '/assets/img/mock_house2c.jpg'
 
                 ],
                 taxAssessmentYear: 2008,
@@ -89,7 +87,7 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
                     lat: null
                 },
                 imgs: [
-                    'http://photos1.zillow.com/p_d/ISxfykigoq586m0000000000.jpg'
+                    '/assets/img/mock_house3a.jpg'
                 ],
                 taxAssessmentYear: 2008,
                 taxAssessment: 633000,
@@ -120,10 +118,10 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
                     lat: null
                 },
                 imgs: [
-                    'http://photos3.zillow.com/p_d/IShntl8vx4ztmt0000000000.jpg',
-                    'http://photos2.zillow.com/p_d/IS1bpx7ipoizmt0000000000.jpg',
-                    'http://photos3.zillow.com/p_d/ISt4nlpblga2nt0000000000.jpg',
-                    'http://photos1.zillow.com/p_d/ISle19mif70unt0000000000.jpg'
+                    '/assets/img/mock_house4a.jpg',
+                    '/assets/img/mock_house4b.jpg',
+                    '/assets/img/mock_house4c.jpg',
+                    '/assets/img/mock_house4d.jpg'
                 ],
                 taxAssessmentYear: 2008,
                 taxAssessment: 628000,
@@ -154,7 +152,7 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
                     lat: null
                 },
                 imgs: [
-                    'http://photos3.zillow.com/p_d/IStsda9wzjb3jk1000000000.jpg'
+                    '/assets/img/mock_house5a.jpg'
                 ],
                 taxAssessmentYear: 2008,
                 taxAssessment: 638000,
@@ -185,18 +183,18 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
         $httpBackend.whenGET(/views\//).passThrough();
         $httpBackend.whenGET(/assets\//).passThrough();
         $httpBackend.whenGET(/templates\//).passThrough();
-        $httpBackend.whenPOST('http://10.0.1.16:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
-            return [200,
-                {
-                    status: 'N/A',
-                    collection: mockZillowComps
-                }, {}];
-        });
-        $httpBackend.whenPOST('http://localhost:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
-            return [200, {}];
-        });
-//        $httpBackend.whenPOST('http://10.0.1.16:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').passThrough();
-//        $httpBackend.whenPOST('http://localhost:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').passThrough();
+//        $httpBackend.whenPOST('http://10.0.1.16:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
+//            return [200,
+//                {
+//                    status: 'N/A',
+//                    collection: mockZillowComps
+//                }, {}];
+//        });
+//        $httpBackend.whenPOST('http://localhost:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
+//            return [200, {}];
+//        });
+        $httpBackend.whenPOST('http://10.0.1.16:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').passThrough();
+        $httpBackend.whenPOST('http://localhost:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').passThrough();
     });
 
 angular.bootstrap(document, ['thotpod.mock']);
