@@ -293,7 +293,7 @@ module.exports = function (grunt) {
                 dirs: [
                     '<%= yeoman.stage %>'
                 ]
-            }
+            },
             html: [
                 '<%= yeoman.stage %>/{,*/}*.html'
             ],
@@ -433,7 +433,7 @@ module.exports = function (grunt) {
         'ngmin',
         'uglify',
         'rev',
-        'usemin'
+        'usemin',
         'clean:dist',
         'copy:toDist'
     ]);
