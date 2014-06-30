@@ -15,7 +15,7 @@ angular.module('thotpod.config', [])
     .factory('Environment', function () {
         return {
             name: 'mock',
-            path: '',
+            path: '/api/',
             config: {},
             adminEmail: 'hunterbrennick@gmail.com'
         };
