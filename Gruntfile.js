@@ -295,15 +295,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        // cssmin: {
-        //     all: {
-        //         files: {
-        //             '<%= yeoman.dist %>/styles/main.css': [
-        //                 '<%= yeoman.dist %>/styles/main.css'
-        //             ]
-        //         }
-        //     }
-        // },
         ngmin: {
             all: {
                 files: [{
@@ -313,19 +304,7 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.stage %>/scripts'
                 }]
             }
-        },
-        // uglify: {
-        //     options: {
-        //         mangle: false
-        //     },
-        //     all: {
-        //         files: {
-        //             '<%= yeoman.dist %>/scripts/scripts.js': [
-        //                 '<%= yeoman.dist %>/scripts/scripts.js'
-        //             ]
-        //         }
-        //     }
-        // }
+        }
     });
 
     // When template task is run, sets watch task of template to environment
