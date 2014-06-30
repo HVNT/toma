@@ -99,6 +99,7 @@
 <% } else if (config.environment == 'local') { %>
     <script src="/environment/env.local.js"></script>
 <% } else if (config.environment == 'demo') { %>
+    <script src="/components/angular-mocks/angular-mocks.js"></script>
     <script src="/environment/env.mock.js"></script>
 <% } else if (config.environment == 'dev') { %>
     <script src="/environment/env.dev.js"></script>
