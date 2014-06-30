@@ -8,7 +8,7 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>thotpod | ya bish</title>
+    <title>toma | trackable offline marketing automation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="cache-control" content="no-cache" />
@@ -45,7 +45,7 @@
 <body style="background: white !important;">
 <div class="loading-background ng-cloak" ng-hide="isRootLoaded()" ng-cloak>
     <div class="loading-container">
-        <h1>thotpod</h1>
+        <h1>toma.</h1>
         <div class="spinner">
             <div class="rect1"></div>
             <div class="rect2"></div>
