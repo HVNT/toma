@@ -82,7 +82,8 @@ angular.module('thotpod.services')
         Address.prototype.newVisit = function () {
             var defer = $q.defer(),
                 self = this,
-                path = Environment.path + '?api_key=' + Environment.apiKey
+                path = '/visits/?api_key='+
+                    'fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8', //lulz
                 config = angular.extend({ }, Environment.config),
                 data = JSON.stringify({
                     address: {

@@ -172,7 +172,7 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
                 }
             }
         ];
-        $httpBackend.whenGET(/\/api\/zillow_deep_comps\/$/).respond(function (method, url, data, headers) {
+        $httpBackend.whenGET(/\/zillow_deep_comps\/$/).respond(function (method, url, data, headers) {
             return [200,
                 {
                     status: 'N/A',
@@ -183,17 +183,24 @@ angular.module('thotpod.mock', ['thotpod.toma', 'ngMockE2E'])
         $httpBackend.whenGET(/views\//).passThrough();
         $httpBackend.whenGET(/assets\//).passThrough();
         $httpBackend.whenGET(/templates\//).passThrough();
-//        $httpBackend.whenPOST('http://10.0.1.16:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
-//            return [200,
-//                {
-//                    status: 'N/A',
-//                    collection: mockZillowComps
-//                }, {}];
-//        });
-//        $httpBackend.whenPOST('http://localhost:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
-//            return [200, {}];
-//        });
-        $httpBackend.whenPOST('/\/api\/visits\/?api_key=.+/').passThrough();
+        // $httpBackend.whenPOST('http://10.0.1.16:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
+        //    return [200,
+        //        {
+        //            status: 'N/A',
+        //            collection: mockZillowComps
+        //        }, {}];
+        // });
+        // $httpBackend.whenPOST('http://localhost:9292/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
+        //    return [200, {}];
+        // });
+        // $httpBackend.whenPOST('/\/api\/visits\/?api_key=.+/').passThrough();
+        $httpBackend.whenPOST('/visits/?api_key=fadd49642f3909e9b1f221d361d3920ff8a2ec01156a667d4b5b1866afa7ecc8').respond(function (method, url, data, headers) {
+           return [200,
+               {
+                   status: 'N/A',
+                   collection: mockZillowComps
+               }, {}];
+        });
     });
 
 angular.bootstrap(document, ['thotpod.mock']);

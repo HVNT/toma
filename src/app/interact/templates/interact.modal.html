@@ -12,11 +12,11 @@
 
             <button class="simple-btn simple-btn--wilkinson pull-left hint--left" data-hint="Back"
                     ng-if="activeAddress.status === 'confirmed' && showCompDetails" ng-click="goInteractList()">
-                <i class="fa fa-arrow-left"></i>
+                <i><</i>
             </button>
         </div>
-        <i class="fa fa-times icon-btn--plain-danger pull-right" style="padding: 8px 8px;"
-           ng-click="interactModalClose()"></i>
+        <i class="icon-btn--plain-danger pull-right" style="padding: 8px 8px;"
+           ng-click="interactModalClose()">x</i>
     </div>
     <div class="interact-modal-body">
         <!-- COMP LIST -->
