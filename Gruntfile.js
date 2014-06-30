@@ -137,20 +137,21 @@ module.exports = function (grunt) {
                 }]
             },
             toDist: {
-              files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= yeoman.stage %>',
-                    dest: '<%= yeoman.dist %>',
-                    src: [
-                        'app/**/*',
-                        'components/**/*',
-                        'environment/**/*',
-                        'core/**/*',
-                        'assets/**/*',
-                        '*.html*'
-                    ]
-                }]
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.stage %>',
+                        dest: '<%= yeoman.dist %>',
+                        src: [
+                            'components/**/*',
+                            'assets/**/*',
+                            '**/*.html',
+                            'scripts/scripts.js',
+                            'styles/main.css'
+                        ]
+                    }
+                ]
             },
             app: {
                 files: [{
@@ -197,26 +198,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        concat: { // revisit
-            demo: {
-                'src': [
-                    '<%= yeoman.stage %>/app/**/*.js',
-                    '<%= yeoman.stage %>/core/**/*.js',
-                    '<%= yeoman.stage %>/components/**/*.js',
-                    '!<%= yeoman.stage %>/app/**/*.unit.js',
-                    '!<%= yeoman.stage %>/app/**/*.e2e.js'
-                ],
-                dest: '<%= yeoman.dist %>/demo/scripts/scripts.js'
-            },
-            mock: {
-                src: [
-                    '<%= yeoman.stage %>/demo/scripts/scripts.js',
-                    '<%= yeoman.app %>/components/angular-mocks/angular-mocks.js',
-                    '<%= yeoman.app %>/app/mock.js'
-                ],
-                dest: '<%= yeoman.stage %>/demo/scripts/scripts.js'
-            }
-        },
         template: {
             mock: {
                 files: {
@@ -259,10 +240,10 @@ module.exports = function (grunt) {
         rev: {
             files: {
                 src: [
-                      '<%= yeoman.stage %>/demo/scripts/{,*/}*.js',
-                      '<%= yeoman.stage %>/demo/styles/{,*/}*.css',
-                      '<%= yeoman.stage %>/demo/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                      '<%= yeoman.stage %>/demo/styles/fonts/*'
+                      '<%= yeoman.stage %>/scripts/{,*/}*.js',
+                      '<%= yeoman.stage %>/styles/{,*/}*.css',
+                      '<%= yeoman.stage %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                      '<%= yeoman.stage %>/styles/fonts/*'
                   ]
              }
         },
@@ -308,17 +289,17 @@ module.exports = function (grunt) {
             all: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/assets/img',
+                    cwd: '<%= yeoman.stage %>/assets/img',
                     src: '{,*/}*.{png,jpg,jpeg}',
-                    dest: '<%= yeoman.stage %>/assets/img'
+                    dest: '<%= yeoman.dist %>/assets/img'
                 }]
             }
         },
         cssmin: {
             all: {
                 files: {
-                    '<%= yeoman.stage %>/styles/main.css': [
-                        '<%= yeoman.stage %>/styles/main.css'
+                    '<%= yeoman.dist %>/styles/main.css': [
+                        '<%= yeoman.dist %>/styles/main.css'
                     ]
                 }
             }
@@ -327,9 +308,9 @@ module.exports = function (grunt) {
             all: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.stage %>/scripts',
+                    cwd: '<%= yeoman.dist %>/scripts',
                     src: '*.js',
-                    dest: '<%= yeoman.stage %>/scripts'
+                    dest: '<%= yeoman.dist %>/scripts'
                 }]
             }
         },
@@ -339,8 +320,8 @@ module.exports = function (grunt) {
             },
             all: {
                 files: {
-                    '<%= yeoman.stage %>/scripts/scripts.js': [
-                        '<%= yeoman.stage %>/scripts/scripts.js'
+                    '<%= yeoman.dist %>/scripts/scripts.js': [
+                        '<%= yeoman.dist %>/scripts/scripts.js'
                     ]
                 }
             }
@@ -394,19 +375,17 @@ module.exports = function (grunt) {
         'compass:prod',
         'template:demo',
         'clean:template',
-        // 'karma:unit',
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
+        'clean:dist',
+        'copy:toDist',
         'imagemin:all',
         'cssmin:all',
         'ngmin:all',
         'uglify:all',
-        'concat:mock',
         'rev',
-        'usemin',
-        'clean:dist',
-        'copy:toDist'
+        'usemin'
     ]);
 
     grunt.registerTask('buildDev', [
@@ -415,7 +394,6 @@ module.exports = function (grunt) {
         'compass:prod',
         'template:dev',
         'clean:template',
-        // 'karma:unit',
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
@@ -435,7 +413,6 @@ module.exports = function (grunt) {
         'compass:prod',
         'template:prod',
         'clean:template',
-        // 'karma:unit',
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',

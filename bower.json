@@ -16,6 +16,7 @@
     "angular-ui-utils": "~0.0.4",
     "angular-ui-router": "~0.2.10",
     "hint.css": "~1.3.1",
-    "angular-bootstrap": "0.11.0"
+    "angular-bootstrap": "0.11.0",
+    "tp-marketplace": "https://github.com/apledger/tp-marketplace.git"
   }
 }
