@@ -90,10 +90,11 @@ module.exports = function (grunt) {
                 }]
             },
             template: {
-                files: [
-                    '<%= yeoman.app %>/{,**/}*.template'
-                ],
-                tasks: ['']
+                files: [{
+                    src: [
+                        '<%= yeoman.stage %>/*.template'
+                    ]
+                }]
             }
         },
         compass: {
@@ -266,12 +267,14 @@ module.exports = function (grunt) {
              }
         },
         express: {
-            options: {
-                port: 8000,
-                hostname: '0.0.0.0',
-                bases: path.resolve('/.tmp'),
-                server: path.resolve('./server'),
-                livereload: true
+            all: {
+                options: {
+                    port: 8000,
+                    hostname: '0.0.0.0',
+                    bases: path.resolve('/.tmp'),
+                    server: path.resolve('./server'),
+                    livereload: true
+                }
             }
         },
         karma: {
@@ -302,37 +305,45 @@ module.exports = function (grunt) {
             ]
         },
         imagemin: {
-            files: [{
-                      expand: true,
-                      cwd: '<%= yeoman.app %>/assets/img',
-                      src: '{,*/}*.{png,jpg,jpeg}',
-                      dest: '<%= yeoman.stage %>/assets/img'
-                  }]
+            all: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/assets/img',
+                    src: '{,*/}*.{png,jpg,jpeg}',
+                    dest: '<%= yeoman.stage %>/assets/img'
+                }]
+            }
         },
         cssmin: {
-            files: {
-                      '<%= yeoman.stage %>/styles/main.css': [
-                          '<%= yeoman.stage %>/styles/main.css'
-                      ]
-                  }
+            all: {
+                files: {
+                    '<%= yeoman.stage %>/styles/main.css': [
+                        '<%= yeoman.stage %>/styles/main.css'
+                    ]
+                }
+            }
         },
         ngmin: {
-            files: [{
-                      expand: true,
-                      cwd: '<%= yeoman.stage %>/scripts',
-                      src: '*.js',
-                      dest: '<%= yeoman.stage %>/scripts'
-                  }]
+            all: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.stage %>/scripts',
+                    src: '*.js',
+                    dest: '<%= yeoman.stage %>/scripts'
+                }]
+            }
         },
         uglify: {
             options: {
                 mangle: false
             },
-            files: {
+            all: {
+                files: {
                     '<%= yeoman.stage %>/scripts/scripts.js': [
                         '<%= yeoman.stage %>/scripts/scripts.js'
                     ]
                 }
+            }
         }
     });
 
@@ -345,7 +356,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('server', [
-        'express',
+        'express:all',
         'open',
         'watch'
     ]);
@@ -387,10 +398,10 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
-        'imagemin',
-        'cssmin',
-        'ngmin',
-        'uglify',
+        'imagemin:all',
+        'cssmin:all',
+        'ngmin:all',
+        'uglify:all',
         'concat:mock',
         'rev',
         'usemin',
@@ -408,10 +419,10 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
-        'imagemin',
-        'cssmin',
-        'ngmin',
-        'uglify',
+        'imagemin:all',
+        'cssmin:all',
+        'ngmin:all',
+        'uglify:all',
         'rev',
         'usemin',
         'clean:dist',
@@ -428,10 +439,10 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concat:.tmp/scripts/scripts.js',
         'concat:.tmp/styles/main.css',
-        'imagemin',
-        'cssmin',
-        'ngmin',
-        'uglify',
+        'imagemin:all',
+        'cssmin:all',
+        'ngmin:all',
+        'uglify:all',
         'rev',
         'usemin',
         'clean:dist',
